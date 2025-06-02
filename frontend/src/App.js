@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import Analyze from './pages/Analyze';
+import About from './pages/About';
+import './App.css';
 
 function App() {
-  const [text, setText] = useState('');
-  const [sentiment, setSentiment] = useState('');
-
-  const handleSubmit = async () => {
-    // For Day 1: just display dummy sentiment without backend
-    setSentiment('Positive (dummy)');
-  };
-
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>AI-Powered Sentiment Analysis</h2>
-      <textarea
-        rows="4"
-        cols="50"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter your text here..."
-      />
-      <br />
-      <button onClick={handleSubmit}>Analyze Sentiment</button>
-      <p>Sentiment: {sentiment}</p>
-    </div>
+    <Router>
+      <div className="app-container">
+        <header>
+          <h1>AI Sentiment Analysis</h1>
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/analyze">Analyze</Link>
+            <Link to="/about">About</Link>
+          </nav>
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/analyze" element={<Analyze />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
+        <footer>
+          <p>&copy; 2025 Sentiment AI. All rights reserved.</p>
+        </footer>
+      </div>
+    </Router>
   );
 }
 
